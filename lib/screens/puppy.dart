@@ -1,16 +1,16 @@
 import 'package:fifi_flutter_project/components/text_input_decoration.dart';
-import 'package:fifi_flutter_project/screens/puppy.dart';
+import 'package:fifi_flutter_project/screens/register.dart';
 import 'package:flutter/material.dart';
 
-class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+
+class Ilovedogsanddogsanddogsanddogsanddogsanddogsanddogsanddogsandfinallydogs extends StatefulWidget {
+  const Ilovedogsanddogsanddogsanddogsanddogsanddogsanddogsanddogsandfinallydogs({Key? key}) : super(key: key);
 
   @override
-  _RegisterState createState() => _RegisterState();
+  _IlovedogsanddogsanddogsanddogsanddogsanddogsanddogsanddogsandfinallydogsState createState() => _IlovedogsanddogsanddogsanddogsanddogsanddogsanddogsanddogsandfinallydogsState();
 }
 
-class _RegisterState extends State<Register> {
-
+class _IlovedogsanddogsanddogsanddogsanddogsanddogsanddogsanddogsandfinallydogsState extends State<Ilovedogsanddogsanddogsanddogsanddogsanddogsanddogsanddogsandfinallydogs> {
   //form key
   final _formKey = GlobalKey<FormState>();
 
@@ -25,7 +25,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Color(0xFFC6A7FF),
+      backgroundColor: Colors.pink[200],
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
         child: Form(
@@ -41,20 +41,20 @@ class _RegisterState extends State<Register> {
                 ),
                 const SizedBox(height: 25),
                 const Text(
-                  "Sign in to preexisting account",
+                  "Register",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 42,
-                    color: Color(0xFF975EFF),
+                    color: Color(0xFFF2A7FF),
                   ),
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
                   decoration: textInputDecoration.copyWith(
-                    hintText: 'email',
-                    prefixIcon: const Icon(Icons.email)
+                      hintText: 'email or username',
+                      prefixIcon: const Icon(Icons.email)
                   ),
-                  validator: (val) => val!.isEmpty ? "Enter an email" : null,
+                  validator: (val) => val!.isEmpty ? "Enter an email or username" : null,
                   onChanged: (val){
                     email = val;
                   },
@@ -62,8 +62,8 @@ class _RegisterState extends State<Register> {
                 const SizedBox(height: 20),
                 TextFormField(
                   decoration: textInputDecoration.copyWith(
-                    hintText: "password",
-                    prefixIcon: const Icon(Icons.lock)
+                      hintText: "password",
+                      prefixIcon: const Icon(Icons.lock)
                   ),
                   validator:(val) => val!.length  < 6 ? "Enter an password 6+ characters long" : null,
                   obscureText: true,
@@ -75,9 +75,9 @@ class _RegisterState extends State<Register> {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                    onPressed: (){
+                  onPressed: (){
 
-                    },
+                  },
                   child: const Text(
                     "Register",
                     style: TextStyle(
@@ -85,8 +85,8 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(const Color(
-                        0xFFAE8BFF))
+                      backgroundColor: MaterialStateProperty.all(const Color(
+                          0xFFFFB3FE))
                   ),
                 ),
                 Row(
@@ -95,21 +95,21 @@ class _RegisterState extends State<Register> {
                   children: [
                     const SizedBox(height: 20),
                     const Text(
-                      "Are you new?",
+                      "Already have an account?",
                       style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold
                       ),
                     ),
                     TextButton(
-                        onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder:(context)=> Ilovedogsanddogsanddogsanddogsanddogsanddogsanddogsanddogsandfinallydogs()));
-                        },
+                      onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const Register()));
+                      },
                       child: const Text(
-                        "Register now!",
+                        "Sign In",
                         style: TextStyle(
-                          color: Color(0xFF7E70FF),
+                          color: Color(0xFFF2A7FF),
                           fontSize: 15,
                           decoration: TextDecoration.underline,
                         ),
@@ -133,3 +133,4 @@ class _RegisterState extends State<Register> {
     );
   }
 }
+
