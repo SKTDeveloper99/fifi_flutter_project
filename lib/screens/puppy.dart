@@ -1,4 +1,5 @@
 import 'package:fifi_flutter_project/components/text_input_decoration.dart';
+import 'package:fifi_flutter_project/screens/home.dart';
 import 'package:fifi_flutter_project/screens/register.dart';
 import 'package:flutter/material.dart';
 
@@ -76,7 +77,7 @@ class _IlovedogsanddogsanddogsanddogsanddogsanddogsanddogsanddogsandfinallydogsS
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: (){
-
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const Home()));
                   },
                   child: const Text(
                     "Register",
