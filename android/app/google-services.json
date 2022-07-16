@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "668456206691",
+    "project_id": "luna-the-dog-a715e",
+    "storage_bucket": "luna-the-dog-a715e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668456206691:android:c39c037275571f986dd356",
+        "android_client_info": {
+          "package_name": "com.example.fifi_flutter_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668456206691-vl91jepefjr1h5c768arcvils4rc4qk1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEX6ZdVq5sa-8zEISU7_fK1vc3XLFjCAc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668456206691-vl91jepefjr1h5c768arcvils4rc4qk1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "668456206691-2pq3nqdjeempk0avcaq82vm184gnii3u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fifiFlutterProject"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
