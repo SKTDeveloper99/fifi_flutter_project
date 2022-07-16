@@ -1,14 +1,17 @@
+import 'package:fifi_flutter_project/app_screens/adoption_form.dart';
+import 'package:fifi_flutter_project/app_screens/search_page.dart';
+import 'package:fifi_flutter_project/app_screens/settings.dart';
+import 'package:fifi_flutter_project/app_screens/splash_screen_game.dart';
+import 'package:fifi_flutter_project/game/game_main_screen.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
-
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-
   //function that creates a card for the dashboard
   Card makeDashboardItem(String title, String img, int index) {
     return Card(
@@ -55,20 +58,20 @@ class _HomeState extends State<Home> {
         child: InkWell(
           onTap: () {
             if (index == 0) {
-
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const SplashScreenGame()));
             }
             if (index == 1) {
               //2.item
               // navigate to pledge screen
-
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const MyHomePage(title:"LUNA MAJORITY IS MINE")));
             }
             if (index == 2) {
               //3.item
-
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>  const SearchPage()));
             }
             if (index == 3) {
               //4.item
-
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsPage()));
             }
 
           },
@@ -106,7 +109,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 232, 158, 219) ,
+      backgroundColor: const Color.fromARGB(255, 232, 158, 219) ,
       body: Column(
         children: [
           const SizedBox(height: 100),
