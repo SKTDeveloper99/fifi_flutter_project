@@ -1,7 +1,6 @@
 import 'dart:math';
-import 'dart:typed_data';
-import 'package:flutter/services.dart';
-//import 'package:audioplayers/audioplayers.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'confetti.dart';
 
@@ -19,6 +18,7 @@ class _InsaneModeState extends State<InsaneMode> {
   var dots = ".";
   @override
   Widget build(BuildContext context) {
+    addPoints(FirebaseAuth.instance.currentUser!.uid);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Big Brain Mode"),
@@ -70,10 +70,13 @@ class _InsaneModeState extends State<InsaneMode> {
                                       ? 'X'
                                       : grid[i] == 2
                                       ? 'O'
-                                      : '')),
-                        ))
+                                      : '')
+                          ),
+                        )
+                    )
                 ],
-              )),
+              )
+          ),
           Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -185,15 +188,25 @@ class _InsaneModeState extends State<InsaneMode> {
         grid[i] = 0;
       }
     }
-    // if (isWinning(1, grid)) {
-    //   AudioPlayer audio = AudioPlayer();
-    //   await audio.setSource(AssetSource('assets/sounds/Mr_Smith-Azul.mp3'));
-    //   audio.play;
-    // }
+  }
+
+  void addPoints(uid) async {
+    if(isWinning(1, grid)) {
+      Map<String, Object?> updates = {};
+      updates["UsersMoney/$uid"] = true;
+      updates["UsersMoney/$uid"] = ServerValue.increment(150);
+      return FirebaseDatabase.instance.ref().update(updates);
+    }
+    if(tie()) {
+      Map<String, Object?> updates = {};
+      updates["UsersMoney/$uid"] = true;
+      updates["UsersMoney/$uid"] = ServerValue.increment(100);
+      return FirebaseDatabase.instance.ref().update(updates);
+    }
   }
 
   void runAi() async {
-    Random random = new Random();
+    Random random = Random();
     await Future.delayed(Duration(milliseconds: random.nextInt(500)+300));
 
     int? winning;

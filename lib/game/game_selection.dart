@@ -1,3 +1,4 @@
+import 'package:fifi_flutter_project/app_screens/home.dart';
 import 'package:fifi_flutter_project/game/beginner_mode.dart';
 import 'package:fifi_flutter_project/game/easy_mode.dart';
 import 'package:fifi_flutter_project/game/hard_mode.dart';
@@ -21,6 +22,13 @@ class _GameSelectionState extends State<GameSelection> {
     return Scaffold(
         appBar: AppBar(
           title: const Text(""),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () =>                       Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const Home())),
+          ),
         ),
         body: Stack(
           children:[
@@ -41,7 +49,7 @@ class _GameSelectionState extends State<GameSelection> {
                   Center(
                     child: ElevatedButton.icon(
                         onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => EasyMode()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const EasyMode()));
                         },
                         label: const Icon(Icons.people_alt, size: 30),
                         icon: const Text(

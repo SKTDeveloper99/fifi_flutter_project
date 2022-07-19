@@ -1,4 +1,4 @@
-import 'package:fifi_flutter_project/game/game_selection.dart';
+import 'package:fifi_flutter_project/app_screens/splash_screen_game.dart';
 import 'package:flutter/material.dart';
 
 class GameMainPage extends StatelessWidget {
@@ -131,7 +131,7 @@ class GameMainPage extends StatelessWidget {
                       color: Colors.white,
                       icon: const Icon(Icons.play_arrow),
                       onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const GameSelection()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const SplashScreenGame()));
                       }
                   )
               )

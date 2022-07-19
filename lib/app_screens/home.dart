@@ -1,8 +1,9 @@
 import 'package:fifi_flutter_project/app_screens/adoption_form.dart';
 import 'package:fifi_flutter_project/app_screens/search_page.dart';
 import 'package:fifi_flutter_project/app_screens/settings.dart';
-import 'package:fifi_flutter_project/app_screens/splash_screen_game.dart';
 import 'package:fifi_flutter_project/game/game_main_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -58,7 +59,7 @@ class _HomeState extends State<Home> {
         child: InkWell(
           onTap: () {
             if (index == 0) {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const SplashScreenGame()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const GameMainPage()));
             }
             if (index == 1) {
               //2.item
@@ -110,56 +111,76 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 232, 158, 219) ,
-      body: Column(
-        children: [
-          const SizedBox(height: 100),
-          Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: StreamBuilder(
+        stream: FirebaseDatabase.instance.ref().child("UsersMoney/${FirebaseAuth.instance.currentUser!.uid}").onValue,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final getUserMoney = (snapshot.data! as DatabaseEvent).snapshot.value;
+            String money = getUserMoney.toString();
+            return Column(
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      "Puppy Adoption Simulator",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      "Dashboard",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black
-                      ),
-                    )
-                  ],
+                const SizedBox(height: 60),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, right: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children:  [
+                          Text(
+                            "Score: $money",
+                            style: const TextStyle(
+                              fontSize: 23,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          const Text(
+                            "Puppy Adoption Simulator",
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          const Text(
+                            "Dashboard",
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Expanded(
+                  child: GridView.count(
+                    crossAxisCount: 2,
+                    padding: const EdgeInsets.all(2),
+                    children: [
+                      makeDashboardItem("Play", "assets/play.png", 0),
+                      makeDashboardItem("Pledge", "assets/dog.png", 1),
+                      makeDashboardItem("Browse", "assets/information.png", 2),
+                      makeDashboardItem("Settings", "assets/settings.png", 3),
+                    ],
+                  ),
                 )
               ],
-            ),
-          ),
-          const SizedBox(height: 20),
-          Expanded(
-            child: GridView.count(
-              crossAxisCount: 2,
-              padding: const EdgeInsets.all(2),
-              children: [
-                makeDashboardItem("Play", "assets/play.png", 0),
-                makeDashboardItem("Pledge", "assets/dog.png", 1),
-                makeDashboardItem("Browse", "assets/information.png", 2),
-                makeDashboardItem("Settings", "assets/settings.png", 3),
-              ],
-            ),
-          )
-
-        ],
-
-      ),
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        }
+        ),
     );
   }
 }

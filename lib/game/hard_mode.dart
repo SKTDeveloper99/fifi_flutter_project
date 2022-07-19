@@ -1,6 +1,5 @@
 import 'package:fifi_flutter_project/app_screens/question_model.dart';
-import 'package:fifi_flutter_project/game/beginner_mode.dart';
-import 'package:fifi_flutter_project/game/display_money.dart';
+import 'package:fifi_flutter_project/app_screens/splash_screen_finish.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
@@ -102,39 +101,39 @@ class _HardModeState extends State<HardMode> {
                 const SizedBox(height: 40),
                 Flexible(
                   child: ListView.separated(
-                      padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     itemCount: listExport[currentQuestionIndex].answersList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final List<int> colorCodes = <int>[600, 500, 400,300];
-                        final List<bool> _selected = List.generate(listExport[currentQuestionIndex].answersList.length, (i) => false);
-                        return ListTile(
-                          tileColor: _selected[index] ? Colors.blue: Colors.amber[colorCodes[index]],
-                          title: Center(child: Text(listExport[currentQuestionIndex].answersList[index].answerText)),
-                          onTap: () {
-                            setState(
-                              () => _selected[index] = !_selected[index],
+                    itemBuilder: (BuildContext context, int index) {
+                      final List<int> colorCodes = <int>[600, 500, 400,300];
+                      final List<bool> _selected = List.generate(listExport[currentQuestionIndex].answersList.length, (i) => false);
+                      return ListTile(
+                        tileColor: _selected[index] ? Colors.blue: Colors.amber[colorCodes[index]],
+                        title: Center(child: Text(listExport[currentQuestionIndex].answersList[index].answerText)),
+                        onTap: () {
+                          setState(
+                                () => _selected[index] = !_selected[index],
+                          );
+                          if(listExport[currentQuestionIndex].answersList[index].isCorrect == true) {
+                            setState(() {
+                              currentQuestionIndex++;
+                              score++;
+                            }
                             );
-                            if(listExport[currentQuestionIndex].answersList[index].isCorrect == true) {
-                              if(isLastQuestion == true){
-                                setState((){
-                                  print(score);
-                                  Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) => const DisplayMoney()));
-                                });
-                              };
-                              setState(() {
-                                currentQuestionIndex++;
-                                score++;
-                              }
-                              );
-                            }
-                            else {
-                                currentQuestionIndex++;
-                            }
-                          },
-                        );
+                          }
+                          else {
+                            currentQuestionIndex++;
+                          }
+                          if(isLastQuestion == true){
+                            setState((){
+                              Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) => SplashScreenFinish(score: score * 50)));
+                            });
+                          }
                         },
-                      separatorBuilder: (BuildContext context, int index) => const Divider(height: 25,),
+                      );
+
+                    },
+                    separatorBuilder: (BuildContext context, int index) => const Divider(height: 25,),
                   ),
                 ),
               ],

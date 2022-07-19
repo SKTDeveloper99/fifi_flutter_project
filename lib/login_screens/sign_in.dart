@@ -1,6 +1,7 @@
 import 'package:fifi_flutter_project/components/text_input_decoration.dart';
 import 'package:fifi_flutter_project/app_screens/home.dart';
 import 'package:fifi_flutter_project/login_screens/sign_up.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -78,14 +79,14 @@ class _LoginState extends State<Login> {
                             signInWithEmailAndPassword();
                             FirebaseAuth.instance.authStateChanges().listen((User? user) {
                               if (user != null) {
+                                FirebaseDatabase.instance.ref().child("UsersMoney/${FirebaseAuth.instance.currentUser?.uid}/").set(
+                                  5000,
+                                );
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (context) => const Home()));
                               }
                             });
-                          }
-                          else {
-                            print('Error here! You cannot login');
                           }
                         },
                       child: const Text(
@@ -145,9 +146,10 @@ void signInWithEmailAndPassword() async {
     );
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
-      print('No user found for that email.');
+      // print('No user found for that email.');
+      return;
     } else if (e.code == 'wrong-password') {
-      print('Wrong password provided for that user.');
+      return;
     }
   }
 }

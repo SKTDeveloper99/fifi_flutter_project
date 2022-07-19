@@ -8,14 +8,16 @@ class SplashScreenGame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedSplashScreen(
-      splash: Lottie.asset('assets/lottie/bookworm_doggo.json'),
-      nextScreen: const GameSelection(),
-      splashIconSize: 325,
-      duration: 3000,
-      backgroundColor: Colors.white,
-      splashTransition: SplashTransition.fadeTransition,
-      animationDuration: const Duration(seconds: 1),
+    return Scaffold(
+      body: AnimatedSplashScreen(
+        splash: Lottie.asset('assets/lottie/bookworm_doggo.json'),
+        nextScreen: const GameSelection(),
+        splashIconSize: 400,
+        duration: 3000,
+        backgroundColor: Colors.white,
+        splashTransition: SplashTransition.fadeTransition,
+        animationDuration: const Duration(seconds: 1),
+      ),
     );
   }
 
